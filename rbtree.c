@@ -19,19 +19,19 @@ static inline int	is_red(t_rbnode *node)
   return ((node) ? (node->color == RED) : (0));
 }
 
-static inline int	my_compare(unsigned int key1, unsigned int key2)
+static inline int my_compare(unsigned int key1, unsigned int key2)
 {
   return ((key1 == key2) ? (0) : ((key1 < key2) ? (-1) : (1)));
 }
 
-static void		flip_color(t_rbnode *node)
+static void flip_color(t_rbnode *node)
 {
   node->color = !(node->color);
   node->left->color = !(node->left->color);
   node->right->color = !(node->right->color);
 }
 
-static t_rbnode		*rotate_left(t_rbnode *left)
+static t_rbnode *rotate_left(t_rbnode *left)
 {
   t_rbnode		*right;
 
@@ -45,7 +45,7 @@ static t_rbnode		*rotate_left(t_rbnode *left)
   return (right);
 }
 
-static t_rbnode		*rotate_right(t_rbnode *right)
+static t_rbnode *rotate_right(t_rbnode *right)
 {
   t_rbnode		*left;
 
@@ -59,8 +59,7 @@ static t_rbnode		*rotate_right(t_rbnode *right)
   return (left);
 }
 
-t_rbnode                *create_node(t_key key,
-                                     t_value value)
+t_rbnode *create_node(t_key key, t_value value)
 {
   t_rbnode              *new;
 
@@ -74,7 +73,7 @@ t_rbnode                *create_node(t_key key,
   return (new);
 }
 
-static t_rbnode		*insert_this(t_rbnode *node, t_key key, t_value value)
+static t_rbnode *insert_this(t_rbnode *node, t_key key, t_value value)
 {
   int			res;
 
@@ -96,16 +95,16 @@ static t_rbnode		*insert_this(t_rbnode *node, t_key key, t_value value)
   return (node);
 }
 
-void		insert(t_key key, t_value value)
+void insert(t_key key, t_value value)
 {
   root_rbtree = insert_this(root_rbtree, key, value);
   if (root_rbtree)
     root_rbtree->color = BLACK;
 }
 
-t_value		get_key(t_rbnode *node, t_key key)
+t_value get_key(t_rbnode *node, t_key key)
 {
-  int		cmp;
+  int cmp;
 
   while (node)
   {
@@ -116,7 +115,7 @@ t_value		get_key(t_rbnode *node, t_key key)
   return (0);
 }
 
-static t_rbnode		*min(t_rbnode *node)
+static t_rbnode *min(t_rbnode *node)
 {
   if (!node)
     return ((t_rbnode*)0);
@@ -125,7 +124,7 @@ static t_rbnode		*min(t_rbnode *node)
   return (node);
 }
 
-inline t_rbnode		*balance_me_that(t_rbnode *node)
+inline t_rbnode *balance_me_that(t_rbnode *node)
 {
   if (is_red(node->right))
     node = rotate_left(node);
@@ -136,7 +135,7 @@ inline t_rbnode		*balance_me_that(t_rbnode *node)
   return (node);
 }
 
-static t_rbnode		*move_red_to_left(t_rbnode *node)
+static t_rbnode *move_red_to_left(t_rbnode *node)
 {
   flip_color(node);
   if (node && node->right && is_red(node->right->left))
@@ -148,7 +147,7 @@ static t_rbnode		*move_red_to_left(t_rbnode *node)
   return (node);
 }
 
-static t_rbnode		*move_red_to_right(t_rbnode *node)
+static t_rbnode *move_red_to_right(t_rbnode *node)
 {
   flip_color(node);
   if (node && node->left && is_red(node->left->left))
@@ -159,7 +158,7 @@ static t_rbnode		*move_red_to_right(t_rbnode *node)
   return (node);
 }
 
-static t_rbnode		*remove_min(t_rbnode *node)
+static t_rbnode *remove_min(t_rbnode *node)
 {
   if (!node)
     return ((t_rbnode*)0);
@@ -174,7 +173,7 @@ static t_rbnode		*remove_min(t_rbnode *node)
   return (balance_me_that(node));
 }
 
-static t_rbnode		*remove_it(t_rbnode *node, t_key key)
+static t_rbnode *remove_it(t_rbnode *node, t_key key)
 {
   t_rbnode		*tmp;
 
@@ -216,7 +215,7 @@ static t_rbnode		*remove_it(t_rbnode *node, t_key key)
   return (balance_me_that(node));
 }
 
-t_rbnode	*remove_key(t_rbnode *node, t_key key)
+t_rbnode *remove_key(t_rbnode *node, t_key key)
 {
   node = remove_it(node, key);
   if (node)
@@ -224,7 +223,7 @@ t_rbnode	*remove_key(t_rbnode *node, t_key key)
   return (node);
 }
 
-t_rbnode        *erase_tree(t_rbnode *node)
+t_rbnode *erase_tree(t_rbnode *node)
 {
   if (node)
   {
