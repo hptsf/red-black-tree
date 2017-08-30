@@ -8,9 +8,11 @@
 ** Last update Mon Feb 16 00:51:05 2015 chapui_s
 */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "rbtree.h"
 
-t_rbnode		*root_rbtree = (t_rbnode*)0;
+t_rbnode *root_rbtree = (t_rbnode*)0;
 
 static inline int	is_red(t_rbnode *node)
 {
@@ -235,4 +237,15 @@ t_rbnode        *erase_tree(t_rbnode *node)
     free(node);
   }
   return ((t_rbnode*)0);
+}
+
+void print_rbtree(t_rbnode *node)
+{
+    if(NULL == node)
+        return;
+    fprintf(stdout, "  key: %3d value: %3d color: %s\n", node->key, node->value, 1 == node->color ? "Red" : "Black");
+    if(NULL != node->left)
+        print_rbtree(node->left);
+    if(NULL != node->right)
+        print_rbtree(node->right);
 }

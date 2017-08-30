@@ -41,5 +41,6 @@ t_rbnode	*remove_key(t_rbnode *node, t_key key);
 unsigned int	get_size(t_rbnode *node, t_key key);
 t_value		get_key(t_rbnode *node, t_key key);
 void		insert(t_key key, t_value value);
+void print_rbtree(t_rbnode *node);
 
 #endif /* !RBTREE_H_ */
